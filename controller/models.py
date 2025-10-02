@@ -9,7 +9,7 @@ class User(db.Model):
     roles = db.relationship('UserRole', back_populates='user', cascade='all, delete-orphan')
     doctor_profile = db.relationship('Doctor', back_populates='user', uselist=False)
     patient_profile = db.relationship('Patient', back_populates='user', uselist=False)
-    admin_profile = db.relationship('Admin', back_populates='user', uselist=False)
+    # admin_profile = db.relationship('Admin', back_populates='user', uselist=False)
 
 class Role(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -111,13 +111,13 @@ class Availability(db.Model):
     # Relationships
     doctor = db.relationship('Doctor', back_populates='availabilities')
 
-class Admin(db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(100), nullable=False)
-    phone = db.Column(db.String(15), unique=True, nullable=False)
+# class Admin(db.Model):
+#     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+#     name = db.Column(db.String(100), nullable=False)
+#     phone = db.Column(db.String(15), unique=True, nullable=False)
 
-    # Foreign Keys
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+#     # Foreign Keys
+#     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
-    # Relationships
-    user = db.relationship('User', back_populates='admin_profile')
+#     # Relationships
+#     user = db.relationship('User', back_populates='admin_profile')

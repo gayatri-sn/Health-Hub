@@ -15,7 +15,6 @@ with app.app_context():
         admin_role = Role(name='admin')
         db.session.add(admin_role)
 
-    
     doctor_role = Role.query.filter_by(name='doctor').first()
     if not doctor_role:
         doctor_role = Role(name='doctor')
@@ -28,11 +27,20 @@ with app.app_context():
 
     db.session.commit()
 
-@app.route('/')
-def index():
-    return render_template('index.html')
+    admin_user = User.query.filter_by(email='admin@gmail.com').first()
+    if not admin_user:
+        admin_user = User(email='admin@gmail.com', password='admin1234')
+        db.session.add(admin_user)
+        db.session.commit()
+
+        user_role = UserRole(user_id=admin_user.id, role_id=admin_role.id)
+        db.session.add(user_role)
+
+    db.session.commit()
+
+from controller.auth_routes import *
+from controller.routes import *
 
 if __name__ == '__main__':
     app.run()
 
-# hi
